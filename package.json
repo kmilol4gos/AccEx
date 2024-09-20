@@ -1,0 +1,14 @@
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+   "build:css": "npx tailwindcss -i ./src/index.css -o ./dist/index.css --watch"
+  },
+  "devDependencies": {
+    "electron": "^32.0.1",
+    "tailwindcss": "^3.4.10"
+  }
+}
