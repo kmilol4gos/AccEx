@@ -1,31 +1,42 @@
-const displayResults = require("./results.js");
+const displayResults = require('./results.js');
 
-const searchInput = document.getElementById("searchInput");
-const searchButton = document.getElementById("searchButton");
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
 
 // Función para realizar la búsqueda en DuckDuckGo
 async function searchDuckDuckGo(query) {
-	try {
-		const response = await fetch(
-			`https://api.duckduckgo.com/?q=${encodeURIComponent(
-				query
-			)}&format=json&pretty=1`
-		);
-		const data = await response.json();
-		return data.RelatedTopics; // Devuelve los resultados relacionados
-	} catch (error) {
-		console.error("Error al realizar la búsqueda:", error);
-	}
+  try {
+    const response = await fetch(
+      `https://api.duckduckgo.com/?q=${encodeURIComponent(
+        query
+      )}&format=json&pretty=1`
+    );
+    const data = await response.json();
+    return data.RelatedTopics; // Devuelve los resultados relacionados
+  } catch (error) {
+    console.error('Error al realizar la búsqueda:', error);
+  }
 }
 
-// Evento para manejar la búsqueda cuando se presiona el botón
-searchButton.addEventListener("click", async () => {
-	const query = searchInput.value;
+const button = async () => {
+  const query = searchInput.value;
 
-	if (query) {
-		const results = await searchDuckDuckGo(query);
-		displayResults(results); // Asegúrate de que esta función esté disponible
-	} else {
-		console.log("Por favor ingresa un término de búsqueda.");
-	}
+  if (query) {
+    const results = await searchDuckDuckGo(query);
+    displayResults(results); // Asegúrate de que esta función esté disponible
+  } else {
+    console.log('Por favor ingresa un término de búsqueda.');
+  }
+};
+
+// Evento para manejar la búsqueda cuando se presiona el botón
+searchButton.addEventListener('click', async () => {
+  button();
+});
+
+// Evento para manejar la búsqueda cuando se presiona Enter
+searchInput.addEventListener('keypress', async (e) => {
+  if (e.key === 'Enter') {
+    button();
+  }
 });
