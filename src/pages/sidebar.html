@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sidebar</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f4f4f4;
+				padding: 20px;
+			}
+			h1 {
+				font-size: 24px;
+				color: #333;
+			}
+			button {
+				width: 100%;
+				padding: 10px;
+				margin: 5px 0;
+				font-size: 16px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Mi Sidebar</h1>
+		<button id="google">Ir a Google</button>
+		<button id="facebook">Ir a Facebook</button>
+		<button id="whatsapp">Ir a WhatsApp</button>
+
+		<script>
+			const { ipcRenderer } = require("electron");
+
+			document.getElementById("google").addEventListener("click", () => {
+				ipcRenderer.send("navigate-to", "https://www.google.com");
+			});
+
+			document.getElementById("facebook").addEventListener("click", () => {
+				ipcRenderer.send("navigate-to", "https://www.facebook.com");
+			});
+
+			document.getElementById("whatsapp").addEventListener("click", () => {
+				ipcRenderer.send("navigate-to", "https://web.whatsapp.com");
+			});
+
+			ipcRenderer.on("loading-started", () => {
+				document.getElementById("google").style.backgroundColor = "red";
+			});
+
+			ipcRenderer.on("loading-stopped", () => {
+				document.getElementById("google").style.backgroundColor = "green";
+			});
+		</script>
+	</body>
+</html>

@@ -8,7 +8,6 @@
 		"build:css": "npx tailwindcss -i ./src/css/styles.css -o ./dist/styles.css --watch"
 	},
 	"devDependencies": {
-		"electron": "^32.0.1",
-		"tailwindcss": "^3.4.10"
+		"electron": "^32.0.1"
 	}
 }
