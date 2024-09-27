@@ -43,7 +43,7 @@ function createWindow() {
 	// Ajustar las vistas al tamaño de la ventana
 	function adjustViews() {
 		const { width, height } = mainWindow.getBounds();
-		const sidebarWidth = Math.floor(width * 0.25);
+		const sidebarWidth = 75;
 		sidebarView.setBounds({ x: 0, y: 0, width: sidebarWidth, height: height });
 		googleView.setBounds({
 			x: sidebarWidth,
@@ -56,18 +56,26 @@ function createWindow() {
 	mainWindow.on("resize", adjustViews);
 	adjustViews();
 
-	// Manejar el evento de cierre de la ventana
+	// Escuchar los eventos de carga de Google y notificar a la sidebar
+	googleView.webContents.on("did-start-loading", () => {
+		sidebarView.webContents.send("loading-started");
+	});
+
+	googleView.webContents.on("did-stop-loading", () => {
+		sidebarView.webContents.send("loading-stopped");
+	});
+
+	// Manejar eventos IPC desde la sidebar para navegar a diferentes URLs
+	ipcMain.on("navigate-to", (event, url) => {
+		if (googleView && googleView.webContents) {
+			googleView.webContents.loadURL(url);
+		}
+	});
+
 	mainWindow.on("closed", () => {
 		mainWindow = null;
 	});
 }
-
-// Escuchar eventos IPC desde la sidebar para navegar a diferentes URLs
-ipcMain.on("navigate-to", (event, url) => {
-	if (googleView && googleView.webContents) {
-		googleView.webContents.loadURL(url);
-	}
-});
 
 app.whenReady().then(createWindow);
 
