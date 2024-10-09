@@ -1,12 +1,11 @@
 {
-  "name": "my-electron-app",
+  "name": "accex-app",
   "version": "1.0.0",
-  "main": "electron.js",
+  "main": "main.js",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "dev": "nodemon --exec electron .",
-    "build:css": "npx tailwindcss -i ./src/css/styles.css -o ./dist/styles.css --watch"
+    "dev": "nodemon --exec electron ."
   },
   "devDependencies": {
     "electron": "^32.0.1",
