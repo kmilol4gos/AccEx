@@ -1,15 +1,20 @@
 {
-  "name": "my-electron-app",
-  "version": "1.0.0",
-  "main": "electron.js",
-  "license": "MIT",
-  "scripts": {
-    "start": "electron .",
-    "dev": "nodemon --exec electron .",
-    "build:css": "npx tailwindcss -i ./src/css/styles.css -o ./dist/styles.css --watch"
-  },
-  "devDependencies": {
-    "electron": "^32.0.1",
-    "nodemon": "^3.1.7"
-  }
+	"name": "my-electron-app",
+	"version": "1.0.0",
+	"main": "electron.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "electron .",
+		"dev": "nodemon --exec electron .",
+		"build:css": "npx tailwindcss -i ./src/css/styles.css -o ./dist/styles.css --watch"
+	},
+	"devDependencies": {
+		"electron": "^32.0.1",
+		"nodemon": "^3.1.7"
+	},
+	"dependencies": {
+		"axios": "^1.7.7",
+		"dotenv": "^16.4.5",
+		"openai": "^4.65.0"
+	}
 }
