@@ -9,6 +9,8 @@
 				font-family: Arial, sans-serif;
 				background-color: #f4f4f4;
 				padding: 20px;
+				display: flex;
+				width: 100%;
 			}
 			h1 {
 				font-size: 24px;
@@ -21,17 +23,49 @@
 				font-size: 16px;
 				cursor: pointer;
 			}
+			#search-bar {
+				width: 100%;
+				padding: 10px;
+				margin-bottom: 20px;
+				font-size: 16px;
+				border: 1px solid #ccc;
+				box-sizing: border-box;
+			}
+			#loading {
+				display: none;
+				margin-top: 20px;
+				font-size: 18px;
+				color: #ff0000;
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Mi Sidebar</h1>
+		<!-- Barra de búsqueda -->
+		<input type="text" id="search-bar" placeholder="Escribe tu consulta..." />
+
 		<button id="google">Ir a Google</button>
 		<button id="facebook">Ir a Facebook</button>
 		<button id="whatsapp">Ir a WhatsApp</button>
 
+		<!-- Indicador de carga -->
+		<div id="loading">Cargando...</div>
+
 		<script>
 			const { ipcRenderer } = require("electron");
 
+			// Enviar consulta de búsqueda a la API de OpenAI
+			document
+				.getElementById("search-bar")
+				.addEventListener("keydown", (event) => {
+					if (event.key === "Enter") {
+						const query = event.target.value;
+						ipcRenderer.send("search-query", query); // Enviar consulta
+						document.getElementById("loading").style.display = "block"; // Mostrar indicador de carga
+					}
+				});
+
+			// Botones de navegación
 			document.getElementById("google").addEventListener("click", () => {
 				ipcRenderer.send("navigate-to", "https://www.google.com");
 			});
@@ -42,14 +76,6 @@
 
 			document.getElementById("whatsapp").addEventListener("click", () => {
 				ipcRenderer.send("navigate-to", "https://web.whatsapp.com");
-			});
-
-			ipcRenderer.on("loading-started", () => {
-				document.getElementById("google").style.backgroundColor = "red";
-			});
-
-			ipcRenderer.on("loading-stopped", () => {
-				document.getElementById("google").style.backgroundColor = "green";
 			});
 		</script>
 	</body>
