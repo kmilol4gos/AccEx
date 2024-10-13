@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Estilos para la barra superior personalizada */
+      #title-bar {
+        background-color: #333;
+        color: white;
+        height: 30px;
+        padding: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        -webkit-app-region: drag; /* Hace que la barra sea "draggable" */
+      }
+
+      #title-bar button {
+        -webkit-app-region: no-drag; /* Evita que los botones sean "draggables" */
+        background-color: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      #title-bar button:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="title-bar">
+      <span>Mi Aplicación</span>
+      <div>
+        <button onclick="minimizarVentana()">_</button>
+        <button onclick="cerrarVentana()">X</button>
+      </div>
+    </div>
+    <h1>Contenido de la Aplicación</h1>
+
+    <script>
+      const { remote } = require('electron');
+      const win = remote.getCurrentWindow();
+
+      function minimizarVentana() {
+        win.minimize();
+      }
+
+      function cerrarVentana() {
+        win.close();
+      }
+    </script>
+  </body>
+</html>
