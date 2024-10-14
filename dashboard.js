@@ -1,6 +1,6 @@
 const path = require('path');
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { exec } = require('child_process');
+const { fork } = require('child_process');
 
 let mainWindow;
 
@@ -17,7 +17,7 @@ function createWindow() {
     icon: path.join(__dirname, 'assets', 'accex-icon.png')
   });
 
-  mainWindow.loadFile('index.html');
+  mainWindow.loadFile('dasboard.html');
   mainWindow.webContents.openDevTools();
 }
 
@@ -29,17 +29,7 @@ app.whenReady().then(() => {
   });
 
   ipcMain.on('dashboard', () => {
-    exec('node dashboard.js', (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error al iniciar dashboard.js: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.error(`stderr: ${stderr}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
-    });
+    fork(path.join(__dirname, 'dashboard.js'));
   });
 });
 

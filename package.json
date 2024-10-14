@@ -8,10 +8,10 @@
     "dev": "nodemon --exec electron ."
   },
   "devDependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
     "electron": "^32.2.0",
     "nodemon": "^3.1.7",
-	"axios": "^1.7.7",
-	"dotenv": "^16.4.5",
-	"openai": "^4.65.0"
+    "openai": "^4.67.3"
   }
 }

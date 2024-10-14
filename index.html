@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACCEX</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="assets/accex-logo.png" alt="ACCE">
+    </div>
+    <div class="buttons">
+      <button id="create-account">Crear Cuenta</button>
+      <button id="login">Iniciar Sesión</button>
+    </div>
+    <div class="language">
+      <img src="assets/language-icon.png" alt="Idioma">
+      <span>Idioma</span>
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    document.getElementById('create-account').addEventListener('click', () => {
+      ipcRenderer.send('load-register-page');
+    });
+    document.getElementById('login').addEventListener('click', () => {
+      ipcRenderer.send('dashboard');
+    });
+  </script>
+</body>
+</html>
