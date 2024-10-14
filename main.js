@@ -5,6 +5,7 @@ const {
   ipcMain,
   Menu,
   MenuItem,
+  globalShortcut,
 } = require('electron');
 const path = require('path');
 
@@ -170,7 +171,16 @@ function createWindow() {
 //#endregion
 
 //#region Funciones de teclado
+function registerShortcuts() {
+  globalShortcut.register('CommandOrControl+R', () => {
+    mainWindow.reload();
+  });
 
+  globalShortcut.register('CommandOrControl+Shift+I', () => {
+    mainWindow.toggleDevTools();
+  });
+}
+//#endregion
 //#region Funciones de scraping
 async function scrapeCurrent() {
   const html = await googleView.webContents.executeJavaScript(
@@ -180,7 +190,21 @@ async function scrapeCurrent() {
 //#endregion
 
 //#region Manejo de eventos de la app
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+  globalShortcut.register('B+N+M', () => {
+    registerShortcuts();
+  });
+
+  //#region Handling shortcuts
+  globalShortcut.register('CommandOrControl+W', () => {
+    mainWindow.close();
+  });
+  globalShortcut.register('CommandOrControl+Q', () => {
+    app.quit();
+  });
+  //#endregion
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -192,5 +216,9 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
 });
 //#endregion
