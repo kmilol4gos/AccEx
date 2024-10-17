@@ -1,82 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Sidebar</title>
-		<style>
-			body {
-				font-family: Arial, sans-serif;
-				background-color: #f4f4f4;
-				padding: 20px;
-				display: flex;
-				width: 100%;
-			}
-			h1 {
-				font-size: 24px;
-				color: #333;
-			}
-			button {
-				width: 100%;
-				padding: 10px;
-				margin: 5px 0;
-				font-size: 16px;
-				cursor: pointer;
-			}
-			#search-bar {
-				width: 100%;
-				padding: 10px;
-				margin-bottom: 20px;
-				font-size: 16px;
-				border: 1px solid #ccc;
-				box-sizing: border-box;
-			}
-			#loading {
-				display: none;
-				margin-top: 20px;
-				font-size: 18px;
-				color: #ff0000;
-			}
-		</style>
-	</head>
-	<body>
-		<h1>Mi Sidebar</h1>
-		<!-- Barra de búsqueda -->
-		<input type="text" id="search-bar" placeholder="Escribe tu consulta..." />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sidebar Expandible</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        align-items: flex-start;
+      }
 
-		<button id="google">Ir a Google</button>
-		<button id="facebook">Ir a Facebook</button>
-		<button id="whatsapp">Ir a WhatsApp</button>
+      /* Estilos para la barra lateral */
+      .sidebar {
+        background-color: #b0d3f0; /* Color de fondo de la barra */
+        width: 80px; /* Anchura de la barra inicialmente */
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        transition: width 0.5s ease; /* Transición suave para la anchura */
+        padding-top: 20px;
+        overflow-x: hidden;
+      }
 
-		<!-- Indicador de carga -->
-		<div id="loading">Cargando...</div>
+      /* Estilo de la barra expandida */
+      .sidebar.expanded {
+        width: 250px; /* Anchura cuando se expande */
+      }
 
-		<script>
-			const { ipcRenderer } = require("electron");
+      /* Transiciones para los elementos dentro de la barra */
+      .sidebar button,
+      .sidebar img,
+      .sidebar h1,
+      .sidebar input {
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
 
-			// Enviar consulta de búsqueda a la API de OpenAI
-			document
-				.getElementById("search-bar")
-				.addEventListener("keydown", (event) => {
-					if (event.key === "Enter") {
-						const query = event.target.value;
-						ipcRenderer.send("search-query", query); // Enviar consulta
-						document.getElementById("loading").style.display = "block"; // Mostrar indicador de carga
-					}
-				});
+      h1 {
+        font-size: 18px;
+        color: #333;
+        text-align: center;
+        opacity: 0; /* Oculto cuando la barra está colapsada */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transform: translateX(-20px); /* Desplazamiento inicial cuando está colapsada */
+      }
 
-			// Botones de navegación
-			document.getElementById("google").addEventListener("click", () => {
-				ipcRenderer.send("navigate-to", "https://www.google.com");
-			});
+      /* Mostrar el título cuando se expande */
+      .sidebar.expanded h1 {
+        opacity: 1;
+        transform: translateX(0); /* Transición suave para mostrar el título */
+      }
 
-			document.getElementById("facebook").addEventListener("click", () => {
-				ipcRenderer.send("navigate-to", "https://www.facebook.com");
-			});
+      /* Estilos para los botones e íconos */
+      .sidebar button,
+      .sidebar img {
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin: 20px 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        padding-left: 10px;
+      }
 
-			document.getElementById("whatsapp").addEventListener("click", () => {
-				ipcRenderer.send("navigate-to", "https://web.whatsapp.com");
-			});
-		</script>
-	</body>
+      /* Iconos dentro de los botones */
+      .icon {
+        width: 30px;
+        height: 30px;
+        margin-right: 15px;
+        transition: transform 0.3s ease; /* Transición suave para los íconos */
+      }
+
+
+      /* Botón de acción en la parte inferior */
+      .bottom-button {
+        width: 60px;
+        height: 60px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: auto;
+        margin-bottom: 20px;
+      }
+
+      .bottom-button img {
+        width: 40px;
+        height: 40px;
+      }
+
+      /* Barra de búsqueda */
+      #search-bar {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        transition: opacity 0.3s ease, transform 0.3s ease; /* Animación suave */
+        opacity: 0;
+        pointer-events: none; /* Deshabilitar cuando está colapsada */
+        transform: translateX(-20px); /* Animación de desplazamiento cuando está colapsada */
+      }
+
+      /* Mostrar la barra de búsqueda cuando se expande */
+      .sidebar.expanded #search-bar {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0); /* Transición suave */
+      }
+
+      #loading {
+        display: none;
+        margin-top: 20px;
+        font-size: 18px;
+        color: #ff0000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar" id="sidebar">
+      <!-- Botón del menú que colapsa/expande la barra -->
+      <button id="toggle-btn">
+        <img src="menu-icon.png" class="icon" alt="Menú" />
+        <h1>Mi Sidebar</h1>
+      </button>
+
+      <!-- Barra de búsqueda -->
+      <input type="text" id="search-bar" placeholder="Escribe tu consulta..." />
+
+      <!-- Botones de navegación -->
+      <button id="google">
+        <img src="google-icon.png" class="icon" alt="Google" />
+        <span>Ir a Google</span>
+      </button>
+
+      <button id="facebook">
+        <img src="facebook-icon.png" class="icon" alt="Facebook" />
+        <span>Ir a Facebook</span>
+      </button>
+
+      <button id="whatsapp">
+        <img src="whatsapp-icon.png" class="icon" alt="WhatsApp" />
+        <span>Ir a WhatsApp</span>
+      </button>
+
+      <!-- Indicador de carga -->
+      <div id="loading">Cargando...</div>
+
+      <!-- Botón inferior -->
+      <div class="bottom-button">
+        <img src="bottom-icon.png" alt="Acción" />
+      </div>
+    </div>
+
+    <script>
+      const { ipcRenderer } = require("electron");
+
+      // Funcionalidad para expandir/colapsar la barra lateral
+      const sidebar = document.getElementById('sidebar');
+      const toggleBtn = document.getElementById('toggle-btn');
+
+      toggleBtn.addEventListener('click', () => {
+        ipcRenderer.send('toggle-sidebar'); // Enviar evento al proceso principal
+        sidebar.classList.toggle('expanded'); // Cambia la clase de la barra
+      });
+
+      // Enviar consulta de búsqueda a la API
+      document.getElementById('search-bar').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          const query = event.target.value;
+          ipcRenderer.send('search-query', query); // Enviar consulta
+          document.getElementById('loading').style.display = 'block'; // Mostrar indicador de carga
+        }
+      });
+
+      // Botones de navegación
+      document.getElementById('google').addEventListener('click', () => {
+        ipcRenderer.send('navigate-to', 'https://www.google.com');
+      });
+
+      document.getElementById('facebook').addEventListener('click', () => {
+        ipcRenderer.send('navigate-to', 'https://www.facebook.com');
+      });
+
+      document.getElementById('whatsapp').addEventListener('click', () => {
+        ipcRenderer.send('navigate-to', 'https://web.whatsapp.com');
+      });
+    </script>
+  </body>
 </html>
