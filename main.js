@@ -1,6 +1,10 @@
 const path = require('path');
+const { fork } = require('child_process');
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { exec } = require('child_process');
+
+// Importar la lógica de dashboard.js
+const { createDashboardWindow } = require('./dashboard');
 
 let mainWindow;
 
@@ -24,6 +28,11 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
 
+  // Escucha el evento "open-dashboard" para cargar el contenido del dashboard
+  ipcMain.on('open-dashboard', () => {
+    createDashboardWindow(mainWindow); // Cargar el contenido del dashboard en la misma ventana
+  });
+
   ipcMain.on('load-register-page', () => {
     mainWindow.loadFile('registro.html');
   });
@@ -40,6 +49,10 @@ app.whenReady().then(() => {
       }
       console.log(`stdout: ${stdout}`);
     });
+  });
+
+  ipcMain.on('run-dashboard-script', () => {
+    fork(path.join(__dirname, 'dashboard.js'));
   });
 });
 
