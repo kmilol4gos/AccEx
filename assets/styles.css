@@ -1,0 +1,194 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  background-color: #ffffff;
+  width: 1024px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+/* Estilo para la barra del logo */
+.logo {
+  background-color: #1a73e8;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  padding: 100px 0; /* Aumenta el espacio de la barra azul */
+}
+
+.logo img {
+  width: 450px;
+}
+
+/* Sección de opciones de inicio de sesión */
+.login-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-top: 20px;
+}
+
+/* Botones de inicio de sesión */
+.login-button {
+  width: 250px;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Botón Google */
+.google-button {
+  background-color: white;
+  border: 1px solid #d1d1d1;
+  color: #555;
+}
+
+.google-button img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+/* Botón Apple */
+.apple-button {
+  background-color: black;
+  color: white;
+}
+
+.apple-button img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+/* Botón Celular */
+.phone-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.phone-button img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+/* Hover effects para los botones */
+.google-button:hover {
+  background-color: #f1f1f1;
+}
+
+.apple-button:hover {
+  background-color: #333;
+}
+
+.phone-button:hover {
+  background-color: #0056b3;
+}
+
+/* Sección del código QR */
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-code {
+  width: 150px;
+  height: 150px;
+  margin-top: 10px;
+}
+
+/* Botón Aceptar */
+.accept-button {
+  width: 150px;
+  padding: 10px 20px;
+  background-color: #003399;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.accept-button:hover {
+  background-color: #002266;
+}
+
+/* Sección de botones existente */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 65px;
+}
+
+#login {
+  width: 200px;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 15px;
+  background-color: #2196f3;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#login:hover {
+  background-color: #1976d2;
+}
+
+#create-account {
+  width: 200px;
+  padding: 15px;
+  font-size: 18px;
+  border: 2px solid #8C8C8C;
+  border-radius: 15px;
+  background-color: white;
+  color: #08295C;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#create-account:hover {
+  background-color: #cfe0ee;
+}
+
+/* Posicionamiento del selector de idioma */
+.language {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.language img {
+  width: 24px;
+  margin-right: 10px;
+}
