@@ -13,7 +13,7 @@ function createWindow() {
     width: 1024,
     height: 600,
     resizable: false,
-    frame: true,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -35,6 +35,7 @@ app.whenReady().then(() => {
 
   ipcMain.on('load-register-page', () => {
     mainWindow.loadFile('registro.html');
+
   });
 
   ipcMain.on('dashboard', () => {

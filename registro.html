@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro ACCEX</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      /* Barra de título personalizada */
+      .title-bar {
+        height: 40px;
+        background-color: #0046ad;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+        color: white;
+        -webkit-app-region: drag; /* Permite arrastrar la ventana */
+      }
+
+      .title-bar .logo {
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .title-bar-buttons {
+        display: flex;
+        align-items: center;
+      }
+
+      .title-bar-button {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-app-region: no-drag; /* Para que los botones no se puedan arrastrar */
+
+    }
+
+      .title-bar-button:hover {
+        background-color: #003580;
+      }
+
+      #close:hover {
+        background-color: #ff4d4d; /* Rojo para cerrar */
+      }
+
+      /* Contenido principal */
+      .container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .content {
+        width: 1000px;
+        text-align: center;
+        background-color: #fff;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .header img {
+        height: 40px;
+      }
+
+      .progress {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%; /* Extiende el ancho del contenedor */
+        max-width: 600px; /* Limita el ancho máximo */
+        position: relative;
+      }
+
+      .progress::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background-color: #d3d3d3; /* Color de la línea inactiva */
+        z-index: 0;
+      }
+
+      .progress div {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #007bff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        position: relative;
+        z-index: 1;
+      }
+
+      .progress div.inactive {
+        background-color: #d3d3d3;
+        color: #000;
+        border-color: #d3d3d3;
+      }
+
+      .progress div.active {
+        background-color: #0046ad;
+        border-color: #0046ad;
+      }
+
+      .progress div.completed {
+        background-color: #5cb85c;
+        border-color: #5cb85c;
+      }
+
+      .progress div.completed::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        right: -50%;
+        height: 3px;
+        background-color: #5cb85c; /* Color de la línea completada */
+        z-index: -1;
+      }
+
+      h2 {
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 30px;
+      }
+
+      .login-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* Organiza los botones en vertical */
+        margin-bottom: 20px;
+      }
+
+      .login-options button {
+        width: 300px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background-color: #fff;
+        margin-bottom: 10px; /* Espacio entre los botones */
+      }
+
+      .login-options img {
+        width: 20px;
+        margin-right: 10px;
+      }
+
+      .login-options button:hover {
+        background-color: #f0f0f0;
+      }
+
+      .divider {
+        display: inline-block;
+        border-left: 2px solid #ccc;
+        height: 160px;
+        margin: 0 20px;
+      }
+
+      .qr-section {
+        text-align: center;
+      }
+
+      .qr-section img {
+        width: 150px;
+        height: 150px;
+      }
+
+      button.accept {
+        padding: 10px 30px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Barra de título personalizada -->
+    <div class="title-bar">
+      <div class="logo">
+        <img
+          src="assets/ic_accex_bar.png"
+          alt="ACCEX Logo"
+          style="height: 20px"
+        />
+      </div>
+      <div class="title-bar-buttons">
+        <div class="title-bar-button" id="minimize">-</div>
+        <div class="title-bar-button" id="maximize">□</div>
+        <div class="title-bar-button" id="close">X</div>
+      </div>
+    </div>
+
+    <!-- Contenido de la ventana -->
+    <div class="container">
+      <div class="content">
+        <!-- Progreso de registro con logo alineado -->
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+          "
+        >
+          <!-- Logo de ACCEX -->
+          <div class="header" style="margin-right: 80px">
+            <!-- Añadido margin-right para alinearlo mejor -->
+            <img
+              src="assets/ic_accex.png"
+              alt="ACCEX logo"
+              style="height: 40px"
+            />
+          </div>
+
+          <!-- Progreso de registro -->
+          <div class="progress">
+            <div class="active">1</div>
+            <div class="inactive">2</div>
+            <div class="inactive">3</div>
+          </div>
+        </div>
+
+        <!-- Título -->
+        <h2>Registro</h2>
+        <p>
+          Comienza creando una cuenta con tu nombre de usuario, correo
+          electrónico y contraseña para poder utilizar ACCEX desde cero.
+        </p>
+
+        <!-- Opciones de inicio de sesión y QR -->
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div class="login-options">
+            <button>
+              <img src="assets/ic_google.png" alt="Google" />
+              Continuar con Google
+            </button>
+            <button>
+              <img src="assets/ic_apple.png" alt="Apple" />
+              Continuar con Apple
+            </button>
+            <button>
+              <img src="assets/ic_phone.png" alt="Celular" />
+              Continuar con Celular
+            </button>
+          </div>
+          <div class="divider"></div>
+          <div class="qr-section">
+            <p>Iniciar sesión Código QR</p>
+            <img src="assets/qr.png" alt="QR Code" />
+          </div>
+        </div>
+
+        <!-- Botón de aceptar -->
+        <button class="accept">Aceptar</button>
+      </div>
+    </div>
+
+    <script>
+      const { remote } = require("electron");
+
+      // Minimizar ventana
+      document.getElementById("minimize").addEventListener("click", () => {
+        const window = remote.getCurrentWindow();
+        window.minimize();
+      });
+
+      // Maximizar o restaurar ventana
+      document.getElementById("maximize").addEventListener("click", () => {
+        const window = remote.getCurrentWindow();
+        if (window.isMaximized()) {
+          window.unmaximize();
+        } else {
+          window.maximize();
+        }
+      });
+
+      // Cerrar ventana
+      document.getElementById("close").addEventListener("click", () => {
+        const window = remote.getCurrentWindow();
+        window.close();
+      });
+    </script>
+  </body>
+</html>

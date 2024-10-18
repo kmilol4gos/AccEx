@@ -5,8 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ACCEX</title>
   <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Barra de título personalizada */
+    .title-bar {
+      height: 40px;
+      background-color: #0046ad;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      color: white;
+      -webkit-app-region: drag; /* Permite arrastrar la ventana */
+    }
+
+    .title-bar .logo {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .title-bar-buttons {
+      display: flex;
+      align-items: center;
+    }
+
+    .title-bar-button {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-app-region: no-drag; /* Para que los botones no se puedan arrastrar */
+    }
+
+    .title-bar-button:hover {
+      background-color: #003580;
+    }
+
+    #close:hover {
+      background-color: #ff4d4d; /* Rojo para cerrar */
+    }
+  </style>
 </head>
 <body>
+    
   <div class="container">
     <div class="logo">
       <img src="assets/accex-logo.png" alt="ACCE">
