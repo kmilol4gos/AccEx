@@ -8,11 +8,57 @@ body {
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   height: 100vh;
   margin: 0;
   overflow: hidden;
+}
+
+/* Barra de título personalizada */
+.title-bar {
+  height: 40px;
+  background-color: #0046ad;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  color: white;
+  width: 100%; /* Asegura que la barra ocupe todo el ancho */
+  -webkit-app-region: drag; /* Permite arrastrar la ventana */
+}
+
+.logo-bar img {
+  height: 30px; /* Ajustamos la altura */
+  width: auto; /* Mantiene la proporción correcta */
+}
+
+/* Separar el logo principal del logo en la barra */
+.container .logo img {
+  width: 450px;
+  height: auto; /* Mantiene la proporción correcta */
+}
+
+.title-bar-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.title-bar-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-app-region: no-drag; /* Para que los botones no se puedan arrastrar */
+}
+
+.title-bar-button:hover {
+  background-color: #003580;
+}
+
+#close:hover {
+  background-color: #ff4d4d; /* Rojo para cerrar */
 }
 
 .container {
@@ -24,121 +70,19 @@ body {
   align-items: center;
   justify-content: space-between;
   border-radius: 10px;
+  margin-top: 0px; /* Para evitar que el contenido quede detrás de la barra de título */
 }
 
-/* Estilo para la barra del logo */
+/* Estilo para la barra del logo principal */
 .logo {
   background-color: #1a73e8;
   width: 100%;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 0px;
   padding: 100px 0; /* Aumenta el espacio de la barra azul */
 }
 
-.logo img {
-  width: 450px;
-}
-
-/* Sección de opciones de inicio de sesión */
-.login-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  margin-top: 20px;
-}
-
-/* Botones de inicio de sesión */
-.login-button {
-  width: 250px;
-  padding: 15px;
-  font-size: 16px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-/* Botón Google */
-.google-button {
-  background-color: white;
-  border: 1px solid #d1d1d1;
-  color: #555;
-}
-
-.google-button img {
-  width: 20px;
-  margin-right: 10px;
-}
-
-/* Botón Apple */
-.apple-button {
-  background-color: black;
-  color: white;
-}
-
-.apple-button img {
-  width: 20px;
-  margin-right: 10px;
-}
-
-/* Botón Celular */
-.phone-button {
-  background-color: #007bff;
-  color: white;
-}
-
-.phone-button img {
-  width: 20px;
-  margin-right: 10px;
-}
-
-/* Hover effects para los botones */
-.google-button:hover {
-  background-color: #f1f1f1;
-}
-
-.apple-button:hover {
-  background-color: #333;
-}
-
-.phone-button:hover {
-  background-color: #0056b3;
-}
-
-/* Sección del código QR */
-.qr-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.qr-code {
-  width: 150px;
-  height: 150px;
-  margin-top: 10px;
-}
-
-/* Botón Aceptar */
-.accept-button {
-  width: 150px;
-  padding: 10px 20px;
-  background-color: #003399;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-  font-size: 16px;
-}
-
-.accept-button:hover {
-  background-color: #002266;
-}
-
-/* Sección de botones existente */
+/* Sección de botones */
 .buttons {
   display: flex;
   flex-direction: column;
@@ -166,10 +110,10 @@ body {
   width: 200px;
   padding: 15px;
   font-size: 18px;
-  border: 2px solid #8C8C8C;
+  border: 2px solid #8c8c8c;
   border-radius: 15px;
   background-color: white;
-  color: #08295C;
+  color: #08295c;
   cursor: pointer;
   transition: background-color 0.3s;
 }
